@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, session, redirect
 from db import get_connection
 
 customer = Blueprint("customer", __name__)
