@@ -1,10 +1,10 @@
-import pyodbc
+import mysql.connector
 
 def get_connection():
-    conn = pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};"
-        "SERVER=USER20\\MSSQLSERVER02;"
-        "DATABASE=Easymart;"
-        "Trusted_Connection=yes;"
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="root",
+        database="Easymart"
     )
     return conn

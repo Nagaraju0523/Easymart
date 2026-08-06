@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Seller Registration</title>
+</head>
+
+<body>
+
+    <h2>Seller Registration</h2>
+
+    <form action="/seller/register" method="POST">
+
+        <label>Shop Name</label><br>
+        <input type="text" name="shop_name" required><br><br>
+
+        <label>Owner Name</label><br>
+        <input type="text" name="owner_name" required><br><br>
+
+        <label>Email</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Phone Number</label><br>
+        <input type="text" name="phone" required><br><br>
+
+        <label>Password</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <label>Address</label><br>
+        <textarea name="address"></textarea><br><br>
+
+        <input type="submit" value="Register">
+
+    </form>
+
+    <br>
+
+    <a href="/seller/login">Already have an account? Login</a>
+
+</body>
+
+</html>
