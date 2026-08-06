@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Cart</title>
+</head>
+
+<body>
+
+    <h1>My Cart</h1>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>ProductName</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+
+        {% for item in cart %}
+
+        <tr>
+
+            <td>
+                <img src="{{ url_for('static', filename='uploads/' + item[4]) }}" width="100">
+            </td>
+
+            <td>{{ item[1] }}</td>
+
+            <td>₹ {{ item[2] }}</td>
+
+            <td>{{ item[3] }}</td>
+
+            <td>₹ {{ item[2] * item[3] }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br>
+
+    <h2>Total Amount : ₹ {{ total }}</h2>
+
+    <br>
+
+    <a href="/dashboard">Continue Shopping</a>
+
+</body>
+
+</html>

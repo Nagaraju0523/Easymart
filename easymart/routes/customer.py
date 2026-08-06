@@ -115,22 +115,78 @@ def add_cart(product_id):
     conn = get_connection()
     cursor = conn.cursor()
 
+    # Check if the product is already in the cart
     cursor.execute("""
-        INSERT INTO Cart (CustomerId, ProductId, Quantity)
-        VALUES (%s, %s, %s)
-    """, (
-        session["customer_id"],
-        product_id,
-        1
-    ))
+        SELECT CartId, Quantity
+        FROM Cart
+        WHERE CustomerId=%s AND ProductId=%s
+    """, (session["customer_id"], product_id))
+
+    item = cursor.fetchone()
+
+    if item:
+        # Increase quantity if already in cart
+        cursor.execute("""
+            UPDATE Cart
+            SET Quantity = Quantity + 1
+            WHERE CartId=%s
+        """, (item[0],))
+    else:
+        # Add new product to cart
+        cursor.execute("""
+            INSERT INTO Cart (CustomerId, ProductId, Quantity)
+            VALUES (%s, %s, %s)
+        """, (
+            session["customer_id"],
+            product_id,
+            1
+        ))
 
     conn.commit()
 
     cursor.close()
     conn.close()
 
-    return redirect("/dashboard")
+    return redirect("/dashboard") 
 
+# ---------------- My Cart ----------------
+@customer.route("/cart")
+def cart():
+
+    if "customer_id" not in session:
+        return redirect("/login")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT
+            Cart.ProductId,
+            Products.ProductName,
+            Products.Price,
+            Cart.Quantity,
+            Products.Image
+        FROM Cart
+        JOIN Products
+        ON Cart.ProductId = Products.ProductId
+        WHERE Cart.CustomerId = %s
+    """, (session["customer_id"],))
+
+    cart = cursor.fetchall()
+
+    total = 0
+
+    for item in cart:
+        total += item[2] * item[3]
+
+    cursor.close()
+    conn.close()
+
+    return render_template(
+        "customer/cart.html",
+        cart=cart,
+        total=total
+    )
 
 # ---------------- Customer Logout ----------------
 @customer.route("/logout")
