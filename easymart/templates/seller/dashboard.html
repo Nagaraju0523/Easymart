@@ -8,9 +8,18 @@
 <body>
 
     <h1>Welcome to Easymart</h1>
-    <h4>Seller Dashboard</h4>
+    <h3>Seller Dashboard</h3>
 
     <hr>
+
+    <!-- Search Product -->
+    <form action="/seller/search" method="GET">
+        <input type="text" name="search" placeholder="Search your products..." style="width:250px; padding:8px;">
+
+        <input type="submit" value="Search">
+    </form>
+
+    <br>
 
     <a href="/seller/add-product">Add Product</a><br><br>
 

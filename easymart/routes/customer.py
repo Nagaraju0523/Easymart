@@ -59,8 +59,6 @@ def login():
 
         user = cursor.fetchone()
 
-        print("User:", user)
-
         cursor.close()
         conn.close()
 
@@ -82,10 +80,56 @@ def dashboard():
     if "customer_id" not in session:
         return redirect("/login")
 
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT ProductId,
+               ProductName,
+               Category,
+               Price,
+               Quantity,
+               Description,
+               Image
+        FROM Products
+    """)
+
+    products = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
     return render_template(
         "customer/dashboard.html",
-        name=session["customer_name"]
+        name=session["customer_name"],
+        products=products
     )
+
+# ---------------- Add to Cart ----------------
+@customer.route("/add-cart/<int:product_id>", methods=["POST"])
+def add_cart(product_id):
+
+    if "customer_id" not in session:
+        return redirect("/login")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO Cart (CustomerId, ProductId, Quantity)
+        VALUES (%s, %s, %s)
+    """, (
+        session["customer_id"],
+        product_id,
+        1
+    ))
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return redirect("/dashboard")
 
 
 # ---------------- Customer Logout ----------------

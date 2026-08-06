@@ -105,7 +105,7 @@ def add_product():
 
         image = request.files["image"]
 
-        filename = secure_filename(image.filename)
+        filename = secure_filename(image.filename) 
 
         image.save(os.path.join(UPLOAD_FOLDER, filename))
 
@@ -134,6 +134,38 @@ def add_product():
         return redirect("/seller/dashboard")
 
     return render_template("seller/add_product.html")
+
+# ---------------- My Products ----------------
+@seller.route("/seller/my-products")
+def my_products():
+
+    if "seller_id" not in session:
+        return redirect("/seller/login")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT ProductId,
+               ProductName,
+               Category,
+               Price,
+               Quantity,
+               Description,
+               Image
+        FROM Products
+        WHERE SellerId=%s
+    """, (session["seller_id"],))
+
+    products = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template(
+        "seller/my_products.html",
+        products=products
+    )
 # ---------------- Seller Logout ----------------
 @seller.route("/seller/logout")
 def logout():

@@ -2,20 +2,48 @@
 <html>
 
 <head>
-    <title>Customer Dashboard</title>
+    <title>Easymart</title>
 </head>
 
 <body>
 
-    <h1>Welcome to Easymart</h1>
+    <h1>Welcome {{ name }}</h1>
 
-    <a href="/products">View Products</a><br><br>
+    <hr>
 
-    <a href="/cart">My Cart</a><br><br>
+    <h2>Available Products</h2>
 
-    <a href="/orders">My Orders</a><br><br>
+    {% for product in products %}
 
-    <a href="/logout">Logout</a>
+    <div style="border:1px solid black; padding:15px; margin:15px; width:300px;">
+
+        <img src="{{ url_for('static', filename='uploads/' + product[6]) }}" width="200" height="200">
+
+        <h3>{{ product[1] }}</h3>
+
+        <p><b>Category:</b> {{ product[2] }}</p>
+
+        <p><b>Price:</b> ₹{{ product[3] }}</p>
+
+        <p><b>Quantity:</b> {{ product[4] }}</p>
+
+        <p>{{ product[5] }}</p>
+
+        <form action="/add-cart/{{ product[0] }}" method="POST">
+            <button type="submit">Add to Cart</button>
+        </form>
+
+    </div>
+
+    {% endfor %}
+
+    <hr>
+
+    <a href="/cart"> My Cart</a><br><br>
+
+    <a href="/orders"> My Orders</a><br><br>
+
+    <a href="/logout"> Logout</a>
 
 </body>
 
