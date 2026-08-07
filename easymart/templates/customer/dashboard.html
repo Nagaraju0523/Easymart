@@ -1,53 +1,58 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
     <title>Easymart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+    <div style="color: white;">
+        <marquee>
+            <h1>Welcome to Easymart, {{ name }}!</h1>
+        </marquee>
 
-    <marquee>
-        <h1>Welcome to Easymart, {{ name }}!</h1>
-    </marquee>
+        <hr>
+        <!-- Search Product -->
+        <form action="/seller/search" method="GET">
+            <input type="text" name="search" placeholder="Search your products..." style="width:250px; padding:8px;">
 
-    <hr>
-
-    <a href="/cart"> My Cart</a>
-
-    <a href="/orders"> My Orders</a><br>
-
-
-
-    <h2>Available Products</h2>
-
-    {% for product in products %}
-
-    <div style="border:1px solid black; padding:15px; margin:15px; width:300px;">
-
-        <img src="{{ url_for('static', filename='uploads/' + product[6]) }}" width="200" height="200">
-
-        <h3>{{ product[1] }}</h3>
-
-        <p><b>Category:</b> {{ product[2] }}</p>
-
-        <p><b>Price:</b> ₹{{ product[3] }}</p>
-
-        <p><b>Quantity:</b> {{ product[4] }}</p>
-
-        <p>{{ product[5] }}</p>
-
-        <form action="/add-cart/{{ product[0] }}" method="POST">
-            <button type="submit">Add to Cart</button>
+            <input type="submit" value="Search">
         </form>
+        <a style="color: rgb(252, 4, 4);" href="/cart"> My Cart</a>
+        <a style="color: rgb(253, 2, 2);" href="/orders"> My Orders</a><br><br><br>
 
+        <h2>Available Products</h2>
+
+        {% for product in products %}
+
+        <div style="border:1px solid rgb(246, 246, 248); padding:15px; margin:15px; width:300px;">
+
+            <img src="{{ url_for('static', filename='uploads/' + product[6]) }}" width="200" height="200">
+
+            <h3>{{ product[1] }}</h3>
+
+            <p><b>Category:</b> {{ product[2] }}</p>
+
+            <p><b>Price:</b> ₹{{ product[3] }}</p>
+
+            <p><b>Quantity:</b> {{ product[4] }}</p>
+
+            <p>{{ product[5] }}</p>
+
+            <form action="/add-cart/{{ product[0] }}" method="POST">
+                <button type="submit">Add to Cart</button>
+            </form>
+
+        </div>
+
+        {% endfor %}
+
+        <hr>
+
+        <a href="/logout"> Logout</a>
     </div>
-
-    {% endfor %}
-
-    <hr>
-
-    <a href="/logout"> Logout</a>
 </body>
 
 </html>

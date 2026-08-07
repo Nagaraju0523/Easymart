@@ -2,29 +2,85 @@
 <html>
 
 <head>
+
     <title>Seller Login</title>
+
 </head>
+<style>
+    body {
+        background-color: #6a8f47;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        background-color: #ada18e;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        width: 90%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        width: 90%;
+        padding: 10px;
+        background-color: #3c85c2;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #2782d8;
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
 
 <body>
+    <div class="container">
+        <h2>Seller Login</h2>
 
-    <h2>Seller Login</h2>
+        <form action="/seller/login" method="POST">
 
-    <form action="/seller/login" method="POST">
+            <label>Email</label><br>
+            <input type="email" name="email" required><br><br>
 
-        <label>Email</label><br>
-        <input type="email" name="email" required><br><br>
+            <label>Password</label><br>
+            <input type="password" name="password" required><br><br>
 
-        <label>Password</label><br>
-        <input type="password" name="password" required><br><br>
+            <input type="submit" value="Login">
 
-        <input type="submit" value="Login">
+        </form>
 
-    </form>
+        <br>
 
-    <br>
-
-    <a href="/seller/register">Create New Seller Account</a>
-
+        <a href="/seller/register">Create New Seller Account</a>
+    </div>
 </body>
 
 </html>

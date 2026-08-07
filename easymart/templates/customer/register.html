@@ -2,27 +2,48 @@
 <html>
 
 <head>
-    <title>Customer Registration</title>
+    <title><B>CUSTOMER REGISTRATION</B></title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<style>
+    .container {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        height: 100vh;
+        padding-left: 5%;
+    }
+</style>
 
 <body>
-    <h1>Customer Registration Page</h1>
-    <form action="/register" method="post">
-        <label>Full Name</label><br>
-        <input type="text" name="name" required><br><br>
-        <label>Email</label><br>
-        <input type="email" name="email" required><br><br>
-        <label>Phone Number</label><br>
-        <input type="text" name="PhoneNumber" required><br><br>
-        <label>Password</label><br>
-        <input type="text" name="password" required><br><br>
-        <label>Address</label><br>
-        <textarea name="address"></textarea><br><br>
 
-        <input type="submit" value="register"><br>
-        <h3>Already have an account? <a href="/login">Login</a></h3>
-    </form>
 
+    <div class="container">
+
+        <div style="color: white;">
+            <form action="/register" method="post">
+                <br><br>
+                <table border="1" color="red" cellpadding="10">
+                    <tr>
+                        <h2>CUSTOMER REGISTRATION</h2></label><br><br>
+                        <label>Full Name</label><br>
+                        <input type="text" name="name" required><br><br>
+                        <label>Email</label><br>
+                        <input type="email" name="email" required><br><br>
+                        <label>Phone Number</label><br>
+                        <input type="text" name="PhoneNumber" required><br><br>
+                        <label>Password</label><br>
+                        <input type="text" name="password" required><br><br>
+                        <label>Address</label><br>
+                        <textarea name="address"></textarea><br><br>
+
+                        <input type="submit" value="register"><br>
+                        <h3>Already have an account? <a href="/login">Login</a></h3>
+                    </tr>
+                </table>
+        </div>
+        </form>
+    </div>
 </body>
 
 </html>
